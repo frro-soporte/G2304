@@ -89,7 +89,12 @@ if __name__ == "__main__":
 
 def generar_pares_delegados(initial: int = 0) -> Iterator[int]:
     """CHALLENGE OPCIONAL: Re-Escribir utilizando Generadores delegados (yield from)"""
-    pass # Completar
+    yield from genera_pares(initial)
+    
+#Creo una función generadora
+def genera_pares(initial):
+  for val in range(initial, 101, 2):
+    yield val
 
 
 # NO MODIFICAR - INICIO
