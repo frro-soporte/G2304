@@ -18,7 +18,9 @@ def crear_tabla():
 def borrar_tabla():
     """Implementar la funcion borrar_tabla, que borra la tabla creada 
     anteriormente."""
-    pass # Completar
+    conexion = sqlite3.connect("practico_04_Database.db")
+    cursor = conexion.cursor()
+    cursor.execute("DELETE persona")
 
 
 # NO MODIFICAR - INICIO
