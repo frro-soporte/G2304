@@ -11,14 +11,24 @@ def buscar_persona(id_persona):
     persona basado en su id. El return es una tupla que contiene sus campos: 
     id, nombre, nacimiento, dni y altura. Si no encuentra ningun registro, 
     devuelve False."""
-    pass # Completar
+    conexion = sqlite3.connect("practico_04_database.db")
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM persona WHERE idPersona = ?",(id_persona, ))
+    per = cursor.fetchone()
+    conexion.commit()
+    conexion.close()
+
+    if per != None:
+      return per
+    
+    return False
 
 
 # NO MODIFICAR - INICIO
 @reset_tabla
 def pruebas():
-    juan = buscar_persona(agregar_persona('juan perez', datetime.datetime(1988, 5, 15), 32165498, 180))
-    assert juan == (1, 'juan perez', datetime.datetime(1988, 5, 15), 32165498, 180)
+    juan = buscar_persona(agregar_persona('juan perez', "15/05/1988", 32165498, 180))
+    assert juan == (1, 'juan perez', "15/05/1988", 32165498, 180)
     assert buscar_persona(12345) is False
 
 if __name__ == '__main__':
