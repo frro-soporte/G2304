@@ -11,7 +11,7 @@ def crear_tabla_peso():
     """
     conexion = sqlite3.connect("practico_04_database.db")
     cursor = conexion.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS PersonaPeso(fecha DATE, peso INTEGER, idPersona INTEGER, FOREIGN KEY (idPersona) REFERENCES) persona(idPersona)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS PersonaPeso(fecha CHAR(20), peso INTEGER, idPersona INTEGER, FOREIGN KEY (idPersona) REFERENCES persona (idPersona)")
     conexion.commit()
     conexion.close()
 
