@@ -12,7 +12,7 @@ def crear_tabla():
     """
     conexion = sqlite3.connect("practico_04_database.db")
     cursor = conexion.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS persona(idPersona INTEGER PRIMARY KEY, nombre CHAR(30), fechaNacimiento DATE, dni INTEGER, altura INTEGER)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS persona(idPersona INTEGER PRIMARY KEY, nombre CHAR(30), fechaNacimiento CHAR(20), dni INTEGER, altura INTEGER)")
     conexion.commit()
     conexion.close()
 
