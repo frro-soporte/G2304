@@ -18,7 +18,7 @@ def buscar_persona(id_persona):
     conexion.commit()
     conexion.close()
 
-    if per != None:
+    if per:
       return per
     
     return False
@@ -27,8 +27,8 @@ def buscar_persona(id_persona):
 # NO MODIFICAR - INICIO
 @reset_tabla
 def pruebas():
-    juan = buscar_persona(agregar_persona('juan perez', "15/05/1988", 32165498, 180))
-    assert juan == (1, 'juan perez', "15/05/1988", 32165498, 180)
+    juan = buscar_persona(agregar_persona('juan perez', '1988-05-15', 32165498, 180))
+    assert juan == (1, 'juan perez', '1988-05-15', 32165498, 180)
     assert buscar_persona(12345) is False
 
 if __name__ == '__main__':
