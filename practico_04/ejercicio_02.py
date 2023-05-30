@@ -17,11 +17,12 @@ def agregar_persona(nombre, nacimiento, dni, altura):
     return id
 
 
+
 # NO MODIFICAR - INICIO
 @reset_tabla
 def pruebas():
-    id_juan = agregar_persona('juan perez', "15/05/1988", 32165498, 180)
-    id_marcela = agregar_persona('marcela gonzalez', "25/01/1980", 12164492, 195)
+    id_juan = agregar_persona('juan perez', '1988-05-12', 32165498, 180)
+    id_marcela = agregar_persona('marcela gonzalez', '1980-01-25', 12164492, 195)
     assert id_juan > 0
     assert id_marcela > id_juan
 
