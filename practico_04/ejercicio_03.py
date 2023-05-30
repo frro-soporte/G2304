@@ -23,10 +23,13 @@ def borrar_persona(id_persona):
     
     return False
 
-# NO MODIFICAR - INICIO
+
+
+
+  # NO MODIFICAR - INICIO
 @reset_tabla
 def pruebas():
-    assert borrar_persona(agregar_persona('juan perez', "15/05/1988", 32165498, 180))
+    assert borrar_persona(agregar_persona('juan perez', '1988-05-15', 32165498, 180))
     assert borrar_persona(12345) is False
 
 if __name__ == '__main__':
