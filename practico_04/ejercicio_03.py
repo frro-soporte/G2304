@@ -10,12 +10,26 @@ def borrar_persona(id_persona):
     """Implementar la funcion borrar_persona, que elimina un registro en la 
     tabla Persona. Devuelve un booleano en base a si encontro el registro y lo 
     borro o no."""
-    pass # Completar
+    conexion = sqlite3.connect("practico_04_database.db")
+    cursor = conexion.cursor()
+    cursor.execute("SELECT * FROM persona WHERE idPersona = ?",(id_persona, ))
+    per = cursor.fetchone()
+    cursor.execute("DELETE FROM persona WHERE idPersona = ?", (id_persona, ))
+    filasModificadas = cursor.rowcount
+    conexion.commit()
+    conexion.close()
+    if per != None and filasModificadas != 0:
+      return True
+    
+    return False
 
-# NO MODIFICAR - INICIO
+
+
+
+  # NO MODIFICAR - INICIO
 @reset_tabla
 def pruebas():
-    assert borrar_persona(agregar_persona('juan perez', datetime.datetime(1988, 5, 15), 32165498, 180))
+    assert borrar_persona(agregar_persona('juan perez', '1988-05-15', 32165498, 180))
     assert borrar_persona(12345) is False
 
 if __name__ == '__main__':

@@ -20,18 +20,41 @@ def agregar_peso(id_persona, fecha, peso):
     - ID del peso registrado.
     - False en caso de no cumplir con alguna validacion."""
 
-    pass # Completar
+    per = buscar_persona(id_persona)
+    
+    if per:
+      conexion = sqlite3.connect("practico_04_database.db")
+      cursor = conexion.cursor()
+      cursor.execute("SELECT fecha FROM PersonaPeso WHERE idPersona = ?", (id_persona, ))
+      registro = cursor.fetchone()
+      if registro == None:
+        cursor.execute("INSERT INTO PersonaPeso (fecha, peso, idPersona) VALUES (?, ?, ?)", (fecha, peso, id_persona))
+        filaInsertada = cursor.lastrowid
+        conexion.commit()
+        conexion.close()
+        return filaInsertada
+      else:
+        fechaRegistro = datetime.strptime(registro[0], '%Y-%m-%d')
+        fechaParametro = datetime.strptime(fecha, '%Y-%m-%d')
+        if fechaParametro > fechaRegistro:
+            cursor.execute("INSERT INTO PersonaPeso (fecha, peso, idPersona) VALUES (?, ?, ?) ", (fecha, peso, id_persona))
+            filaInsertada = cursor.lastrowid
+            conexion.commit()
+            conexion.close()
+            return filaInsertada
+      
+    return False
 
 
 # NO MODIFICAR - INICIO
 @reset_tabla
 def pruebas():
-    id_juan = agregar_persona('juan perez', datetime.datetime(1988, 5, 15), 32165498, 180)
-    assert agregar_peso(id_juan, datetime.datetime(2018, 5, 26), 80) > 0
+    id_juan = agregar_persona('juan perez', '1988-05-15', 32165498, 180)
+    assert agregar_peso(id_juan, '2018-05-26', 80) > 0
     # Test Id incorrecto
-    assert agregar_peso(200, datetime.datetime(1988, 5, 15), 80) == False
+    assert agregar_peso(200, '1988-05-15', 80) == False
     # Test Registro previo al 2018-05-26
-    assert agregar_peso(id_juan, datetime.datetime(2018, 5, 16), 80) == False
+    assert agregar_peso(id_juan, '2018-05-16', 80) == False
 
 if __name__ == '__main__':
     pruebas()

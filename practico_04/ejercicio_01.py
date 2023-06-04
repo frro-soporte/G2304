@@ -10,13 +10,21 @@ def crear_tabla():
         - DNI: Int()
         - Altura: Int()
     """
-    pass # Completar
+    conexion = sqlite3.connect("practico_04_database.db")
+    cursor = conexion.cursor()
+    cursor.execute("CREATE TABLE IF NOT EXISTS persona(idPersona INTEGER PRIMARY KEY, nombre CHAR(30), fechaNacimiento TEXT, dni INTEGER, altura INTEGER)")
+    conexion.commit()
+    conexion.close()
 
 
 def borrar_tabla():
-    """Implementar la funcion borrar_tabla, que borra la tabla creada 
+  """Implementar la funcion borrar_tabla, que borra la tabla creada 
     anteriormente."""
-    pass # Completar
+  conexion = sqlite3.connect("practico_04_database.db")
+  cursor = conexion.cursor()
+  cursor.execute("DELETE FROM persona")
+  conexion.commit()
+  conexion.close()
 
 
 # NO MODIFICAR - INICIO
