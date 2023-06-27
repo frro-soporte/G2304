@@ -5,15 +5,26 @@ from practico_05.ejercicio_02 import DatosSocio
 
 
 class DniRepetido(Exception):
-    pass
-
+    """Se levanta cuando el dni del socio ya esta registrado"""
+    def __init__(self, dni, message= "El DNI del socio ya existe"):
+        self.dni = dni
+        self.message = message
+        super().__init__(self.message)
 
 class LongitudInvalida(Exception):
-    pass
+    """Se levanta cuando se excede el limite maximo de caracteres
+    o no se alcanza el limite minimo caracteres"""
+    def __init__(self, longitud, message= "El nombre o apellido no está dentro del rango (3, 15)"):
+        self.longitud = longitud
+        self.message = message
+        super().__init__(self.message)
 
 
 class MaximoAlcanzado(Exception):
-    pass
+    """Se levanta cuando se llega al maximo de socios"""
+    def __init__(self, message= "Se excedió la capacidad máxima de socios"):
+        self.message = message
+        super().__init__(self.message)
 
 
 class NegocioSocio(object):
@@ -57,10 +68,10 @@ class NegocioSocio(object):
         :type socio: Socio
         :rtype: bool
         """
-        try:
+        if self.regla_1(socio) and self.regla_2(socio) and self.regla_3():
             self.datos.alta(socio)
             return True
-        except:
+        else:
             return False
 
     def baja(self, id_socio):
@@ -80,10 +91,10 @@ class NegocioSocio(object):
         :type socio: Socio
         :rtype: bool
         """
-        try:
+        if self.regla_2(socio):
             self.datos.modificacion(socio)
             return True
-        except:
+        else:
             return False
 
     def regla_1(self, socio):
@@ -93,7 +104,9 @@ class NegocioSocio(object):
         :raise: DniRepetido
         :return: bool
         """
-        return False
+        if self.buscar_dni(socio.dni) is not None:
+            raise DniRepetido(socio.dni)
+        return True
 
     def regla_2(self, socio):
         """
@@ -102,7 +115,11 @@ class NegocioSocio(object):
         :raise: LongitudInvalida
         :return: bool
         """
-        return False
+        if not self.MIN_CARACTERES <= len(socio.nombre) <= self.MAX_CARACTERES:
+            raise LongitudInvalida(len(socio.nombre))
+        if not self.MIN_CARACTERES <= len(socio.apellido) <= self.MAX_CARACTERES:
+            raise LongitudInvalida(len(socio.apellido))
+        return True
 
     def regla_3(self):
         """
@@ -110,4 +127,6 @@ class NegocioSocio(object):
         :raise: MaximoAlcanzado
         :return: bool
         """
-        return False
+        if len(self.todos()) >= self.MAX_SOCIOS:
+            raise MaximoAlcanzado()
+        return True
