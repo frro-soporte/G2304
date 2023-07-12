@@ -1,0 +1,103 @@
+GridLayout:
+    rows: 6
+    cols: 2
+    padding: 10
+    spacing: 10
+
+    Label:
+        text: 'Usuario'
+        font_size: 30
+    TextInput:
+        id: user
+        multiline: False
+        on_focus:
+            progress_bar.value = 0
+            if user.text: progress_bar.value += 1
+            if psw.text: progress_bar.value += 1
+            if vpsw.text: progress_bar.value += 1
+            if email.text: progress_bar.value += 1
+            if birthdate.text: progress_bar.value += 1
+    Label:
+        text: 'Contraseña'
+        font_size: 30
+    TextInput:
+        id: psw
+        password: True
+        multiline: False
+        on_focus:
+            progress_bar.value = 0
+            if user.text: progress_bar.value += 1
+            if psw.text: progress_bar.value += 1
+            if vpsw.text: progress_bar.value += 1
+            if email.text: progress_bar.value += 1
+            if birthdate.text: progress_bar.value += 1
+    Label:
+        text: 'Valida contraseña'
+        font_size: 30
+    TextInput:
+        id: vpsw
+        password: True
+        multiline: False
+        on_focus:
+            progress_bar.value = 0
+            if user.text: progress_bar.value += 1
+            if psw.text: progress_bar.value += 1
+            if vpsw.text: progress_bar.value += 1
+            if email.text: progress_bar.value += 1
+            if birthdate.text: progress_bar.value += 1
+    Label:
+        text: 'Email'
+        font_size: 30
+    TextInput:
+        id: email
+        multiline: False
+        on_focus:
+            progress_bar.value = 0
+            if user.text: progress_bar.value += 1
+            if psw.text: progress_bar.value += 1
+            if vpsw.text: progress_bar.value += 1
+            if email.text: progress_bar.value += 1
+            if birthdate.text: progress_bar.value += 1
+    Label:
+        text: 'Fecha Nacimiento'
+        font_size: 30
+    TextInput:
+        id: birthdate
+        multiline: False
+        on_focus:
+            progress_bar.value = 0
+            if user.text: progress_bar.value += 1
+            if psw.text: progress_bar.value += 1
+            if vpsw.text: progress_bar.value += 1
+            if email.text: progress_bar.value += 1
+            if birthdate.text: progress_bar.value += 1
+    ProgressBar:
+        id: progress_bar
+        value: 0
+        max: 5
+
+    GridLayout:
+        cols: 2
+
+        Button:
+            text: 'Limpiar'
+            on_press:
+                user.text = ''
+                psw.text = ''
+                vpsw.text = ''
+                email.text = ''
+                birthdate.text = ''
+                progress_bar.value = 0
+
+        Button:
+            text: 'Siguiente'
+            on_press:
+                progress_bar.value = 0
+                if user.text: progress_bar.value += 1
+                if psw.text: progress_bar.value += 1
+                if vpsw.text: progress_bar.value += 1
+                if email.text: progress_bar.value += 1
+                if birthdate.text: progress_bar.value += 1
+                if progress_bar.value != progress_bar.max: app.lbl.text = "Falta completar campos"; app.popupCampos.open()
+                elif psw.text != vpsw.text: app.lbl.text = "Contraseñas no coinciden"; app.popupCampos.open()
+                else: app.lbl.text = "Usuario registrado!"; app.popupCampos.open()
